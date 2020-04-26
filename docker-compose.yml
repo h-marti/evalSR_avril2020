@@ -1,0 +1,36 @@
+version: '3'
+services:
+  web:
+    #chemin du dockerfile
+    build: .
+    #description du volume
+    volumes:
+      - "./web:/app"
+    #lien vers le conteneur de bdd
+    links:
+      - db
+  db:
+    #selection image
+    image: "mariadb"
+    #attribution de valeur aux variable d'env
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: "database"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+    #description du volume
+    volumes:
+      - "./db:/var/lib/mysql"
+    #règle de redémarrage perpetuel en cas de crash
+    restart:
+      always
+
+#service web seul
+#  web2:
+#    build: <chemin_du_dockerfile>
+#    volumes:
+#      - <chemin_du_volume>
+#
+volumes:
+    web:
+    db:

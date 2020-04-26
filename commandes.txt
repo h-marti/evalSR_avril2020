@@ -1,0 +1,16 @@
+#Partie 2
+#Donner les commandes qui permettent de :
+
+#	Générer limage à partir du fichier Dockerfile :
+docker build --tag <nom_de_l_image>:<tag> </chemin/du/dockerfile>
+
+#	Créer un nouveau conteneur basé sur votre image dont les fichiers
+#	PHP doivent être modifiables depuis la machine hôte
+docker run --name <nom_du_conteneur> -v </chemin/local>:</chemin/dans/le/docker> <nom_de_l_image>
+
+#	Dexécuter une commande sur le conteneur pour vérifier si tor fonctionne bien
+docker exec -it <nom_du_conteneur> <commande> <arguments>
+
+#	Créer un conteneur basé sur limage officielle mariadb, ainsi qu'un 
+#	conteneur basé sur votre image dont le code PHP peut accéder à la BDD instanciée
+docker run --name db -e MYSQL_ROOT_PASSWORD=<mot_de_passe> mariadb && docker run --name web --link db <nom_de_l_image>

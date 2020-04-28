@@ -5,7 +5,7 @@ services:
     build: .
     #description du volume
     volumes:
-      - "./web:/app"
+      - "./web:/var/www/html/"
     #lien vers le conteneur de bdd
     links:
       - db

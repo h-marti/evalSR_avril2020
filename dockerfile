@@ -11,26 +11,13 @@ RUN apt-get update -y && \
                 php-curl \
                 tor
 
-#Stop apache2
-RUN apache2ctl stop
-#Ajout config perso
-COPY app.conf /etc/apache2/sites-available/app.conf
-#Desactivation defaut
-RUN a2dissite 000-default.conf
-#Activation perso
-RUN a2ensite app.conf
-
 #Ajout fichier verification configuration
-RUN mkdir /app && echo "<?php phpinfo() ?>" > /app/index.php
-
-#Lancement apache2
-#RUN apache2ctl start
+RUN rm -rf /var/www/html/index.html
+RUN echo "<?php phpinfo() ?>" > /var/www/html/index.php
 
 #Config tor
 RUN rm -f /etc/tor/torrc
 COPY torrc /etc/tor/
-#Execution tor
-RUN tor
 
 #Copie script execution
 COPY start.sh /tmp/start.sh

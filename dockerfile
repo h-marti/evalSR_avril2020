@@ -17,12 +17,9 @@ RUN apache2ctl stop
 COPY app.conf /etc/apache2/sites-available/app.conf
 #Desactivation defaut
 RUN a2dissite 000-default.conf
+RUN rm -rf /var/www/html/index.html
 #Activation perso
 RUN a2ensite app.conf
-
-#Ajout fichier verification configuration
-RUN rm -rf /var/www/html/index.html
-RUN touch /var/www/html/index.php && echo "<?php phpinfo() ?>" > /var/www/html/index.php
 
 #Config tor
 RUN rm -f /etc/tor/torrc
